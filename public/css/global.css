@@ -1,0 +1,13 @@
+.task-edit > button:last-of-type,
+.tasks > tr input{
+    display: none;
+}
+.tasks > tr p{
+    display: block;
+}
+.hidden{
+    display: none !important;
+}
+.unhidden{
+    display: block !important;
+}

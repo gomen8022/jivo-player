@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="https://atuin.ru/demo/ui-slider/jquery.ui.touch-punch.min.js"></script>
+</head>
+<body id="jivo_element">
+<input style="width: 14%;position: absolute;z-index: 999;transform: rotate(270deg);bottom: 50px;" type="range" value="1" min='0' step='5'>
+<div style="position:relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+    <a id="adv" target="_blank" href="#">
+        <video id='video-player' autoplay preload='metadata'>
+            <!--<source src="" type="video/mp4">-->
+        </video>
+    </a>
+</div>
+<script>
+    var media;
+    $.ajax({
+        type: "POST",
+        url: "/getFile",
+        data: "",
+        success: function(msg){
+            var audio = document.getElementsByTagName('video')[0];
+            var source = document.createElement('source');
+            source.setAttribute('src','media/' + JSON.parse(msg));
+            audio.appendChild(source);
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/getLink",
+        data: "",
+        success: function(msg){
+            $('#adv').attr('href', JSON.parse(msg));
+        }
+    });
+    var video = document.querySelector('video');
+    var input = document.querySelector('input');
+    input.onchange = function() {
+        console.log(input.value);
+        video.volume = input.value/100;
+    }
+
+    function showOld(){
+        $('#jivo_element').remove();
+    }
+</script>
+</body>
+</html>
